@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+
+    <title>Cartographer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+
+    <!-- Javascripts field -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=36963882-9b9c-4126-bd90-4eda08c2f8fe"
+            type="text/javascript"></script>
+    <script src="/js/main_functions.js" type="text/javascript"></script>
+</head>
+
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="my-fixed-col">
+
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;height: 100vh">
+
+                <div class="row" style="height: 130px">
+                    <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+                        <img src="/images/40x40.png" width="40" alt="" height="40">
+                        <span class="fs-4">Cartographer</span>
+                    </a>
+                    <p class="mt-1 text-muted"></p>
+
+                    <!--Кнопки табов-->
+                    <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#route"
+                               role="tab">Маршрут</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#control"
+                               role="tab">Управление</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="row" style="height: calc(100% - 130px - 75px)">
+                    <div class="overflow-auto" style="height: 100%">
+
+                        <!--Контент-->
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="route">
+                                <div th:replace="main_routeTab :: content"></div>
+                            </div>
+                            <div class="tab-pane fade" id="control">
+                                <div th:replace="main_controlTab :: content"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row" style="height: 75px">
+                    <!--Профиль-->
+                    <div th:replace="main_userMenu :: content"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Яндекс-карта -->
+        <div id="mapDivId" class="my-fluid-col">
+            <div id="map" style="width:100%;height:100vh"></div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

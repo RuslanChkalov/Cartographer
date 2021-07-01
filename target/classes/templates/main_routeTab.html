@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<body>
+<div th:fragment="content">
+
+    <!--Контент вкладки "маршрут"-->
+    <span class="fs-6 text-primary">Путевые точки маршрута:</span>
+    <p class="mt-0 text-muted"></p>
+
+    <div class="alert alert-danger" style="display: none" id="routeError" role="alert">
+        Ошибка маршрута
+    </div>
+    <div class="alert alert-primary" style="display: none" id="routeLoading" role="alert">
+        Загрузка маршрута
+    </div>
+    <!--Получаем координаты точек на карте, инициатор - событие Яндекс.Карты-->
+    <div id="pointsTable" th:with="var=${points}">
+
+        <div th:with="symbolsPattern = 'ABCDEFGHIJ'"><!--Список тегов точек, предопределенных Яндекс.Картами-->
+            <div th:each="point, iterStat : ${var}">
+
+                <!--Переменная с id шаблона генерируемого блока-->
+                <div th:with="sectionNameMask='routeRow'+${iterStat.index}">
+                    <div th:with="inputNameMask='routeInput'+${iterStat.index}">
+                        <div class="input-group mb-2" th:id="${sectionNameMask}">
+                            <div class="input-group-prepend">
+
+                    <span class="input-group-text" style="width:35px">
+                        <!--Добавляем тэги именованных точек-->
+                        <div th:text="${iterStat.index<10} ? ${symbolsPattern[iterStat.index]} : '⠀'"></div>
+                    </span>
+
+                            </div>
+                            <input th:id="${inputNameMask}" type="text" class="form-control" th:value="${point}"
+                                   th:onchange="getTableValues()"/>
+                            <button type="button" class="btn btn-outline-danger"
+                                    th:onclick="removeRowFromTable(/*[[${sectionNameMask}]]*/)">x
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" th:onclick="addLineInTable()" class="btn btn-success mb-2">Добавить точку</button>
+        <button type="button" th:onclick="cleanMultiRoute(null)" class="btn btn-danger">Очистить маршрут</button>
+
+
+    </div>
+</div>
+</body>
+</html>

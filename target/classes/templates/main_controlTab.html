@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<body>
+<div th:fragment="content">
+    <!--Контент вкладки "управление"-->
+
+    <span class="fs-6 text-primary">Сохранение маршрута</span>
+    <p class="mt-0 text-muted"></p>
+    <input type="text" id="routename" class="form-control mb-2" placeholder="Название маршрута" required autofocus>
+    <input type="text" id="routenote" class="form-control mb-2" placeholder="Примечание">
+
+    <!-- Статус операции сохранения -->
+    <p class="text-danger" id="saveError" style="display: none">Текст ошибки</p>
+    <p class="text-success" id="saveOk" style="display: none">Маршрут сохранен</p>
+
+    <button type="button" th:onclick="saveRoute()" class="btn btn-success mt-2">Сохранить маршрут</button>
+    <hr>
+
+    <span class="fs-6 text-primary">Печать текущего маршрута</span>
+    <p class="mt-0 text-muted"></p>
+    <button type="button" th:onclick="printRoute()" class="btn btn-secondary">Печать</button>
+    <hr>
+
+    <span class="fs-6 text-primary">Ранее созданные маршруты</span>
+    <p class="mt-0 text-muted"></p>
+
+    <span class="fs-6">Параметр сортировки:</span>
+
+    <!-- Способ сортировки архивных маршрутов -->
+    <select class="form-select mt-2" id="sortingSelector" th:onchange="archiveRouteSorting()">
+        <option value="1">Дата добавления</option>
+        <option value="2">Название</option>
+        <option value="3">Примечание</option>
+    </select>
+    <p class="mt-0 text-muted"></p>
+
+    <span class="fs-6">Список маршрутов:</span>
+    <div class="mt-2"></div>
+
+    <!-- Получение данных архивных маршрутов: 0 - id, 1 - name, 2 - note-->
+    <div id="archiveRoutesTable" th:with="var=${dataList}">
+        <div th:each="route : ${var}">
+
+            <!-- Итерационный вывод архивных маршрутов -->
+            <div th:id="${'archiveRoute'+route.get(0)}">
+                <div class="input-group">
+
+                    <!-- Название маршрута -->
+                    <input type="text" class="form-control" th:value="${route.get(1)}" readonly/>
+
+                    <!-- Загрузка маршрута -->
+                    <button type="button" class="btn btn-outline-success"
+                            th:onclick="loadArchiveRoute(/*[[${route.get(0)}]]*/)">✓
+                    </button>
+
+                    <!-- Удаление маршрута -->
+                    <button type="button" class="btn btn-outline-danger"
+                            th:onclick="removeArchiveRoute(/*[[${route.get(0)}]]*/)">x
+                    </button>
+
+                </div>
+
+                <!-- Примечание к маршруту -->
+                <p class="text-muted">
+                    <span th:text="${route.get(2)}"></span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

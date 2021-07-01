@@ -1,0 +1,23 @@
+.my-fixed-col{
+    width: 280px;
+}
+
+.my-fluid-col{
+    width: calc(100% - 280px);
+}
+
+.btn-success{
+    width: 230px;
+}
+
+.btn-danger{
+    width: 230px;
+}
+
+.btn-secondary{
+    width: 230px;
+}
+
+.tab-pane{
+    width: 230px;
+}

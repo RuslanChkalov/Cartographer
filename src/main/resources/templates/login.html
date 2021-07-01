@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
+
+    <title>Авторизация</title>
+</head>
+<body class="text-center">
+<form th:action="@{/login}" method="post" class="form-signin">
+    <img class="mb-2" src="/images/logo.png" alt="">
+    <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
+
+    <input name="username" class="form-control mb-2" placeholder="Логин" required autofocus>
+    <input type="password" name="password" class="form-control mb-3" placeholder="Пароль" required>
+
+    <div th:if="${param.error}">
+        <div class="alert alert-danger" role="alert">
+            Неверные данные авторизации
+        </div>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Войти</button>
+        <a href="/registration" class="btn btn-secondary btn-lg btn-block" type="button">Регистрация</a>
+    </div>
+
+    <p class="mt-5 text-muted"></p>
+
+    <div class="container">
+        <div class="row justify-content-md-center">&copy; 2021, Cartographer project
+        </div>
+        <div class="row justify-content-md-center">by Ruslan Chkalov
+        </div>
+    </div>
+
+</form>
+</body>
+</html>
